@@ -66,65 +66,10 @@ if st.sidebar.checkbox("Show raw data"):
     st.subheader("Full Dataset")
     st.dataframe(glass_df)
 
-st.sidebar.subheader("Scatter Plot")
-
 # Choosing x-axis values for the scatter plot.
 # Add a multiselect in the sidebar with the 'Select the x-axis values:' label
 # and pass all the 9 features as a tuple i.e. ('RI', 'Na', 'Mg', 'Al', 'Si', 'K', 'Ca', 'Ba', 'Fe') as options.
 # Store the current value of this widget in the 'features_list' variable.
-features_list = st.sidebar.multiselect("Select the x-axis values:",
-                                            ('RI', 'Na', 'Mg', 'Al', 'Si', 'K', 'Ca', 'Ba', 'Fe'))
-
-st.set_option('deprecation.showPyplotGlobalUse', False)
-
-for feature in features_list:
-    st.subheader(f"Scatter plot between {feature} and GlassType")
-    plt.figure(figsize = (12, 6))
-    sns.scatterplot(x = feature, y = 'GlassType', data = glass_df)
-    st.pyplot()
-
-st.sidebar.subheader("Histogram")
-
-# Choosing features for histograms.
-hist_features = st.sidebar.multiselect("Select features to create histograms:",
-                                            ('RI', 'Na', 'Mg', 'Al', 'Si', 'K', 'Ca', 'Ba', 'Fe'))
-# Create histograms.
-for feature in hist_features:
-    st.subheader(f"Histogram for {feature}")
-    plt.figure(figsize = (12, 6))
-    plt.hist(glass_df[feature], bins = 'sturges', edgecolor = 'black')
-    st.pyplot()
-
-st.sidebar.subheader("Box Plot")
-
-# Choosing columns for box plots.
-box_plot_cols = st.sidebar.multiselect("Select the columns to create box plots:",
-                                            ('RI', 'Na', 'Mg', 'Al', 'Si', 'K', 'Ca', 'Ba', 'Fe', 'GlassType'))
-
-# Create box plots.
-for col in box_plot_cols:
-    st.subheader(f"Box plot for {col}")
-    plt.figure(figsize = (12, 2))
-    sns.boxplot(glass_df[col])
-    st.pyplot()
-
-st.sidebar.subheader("Scatter Plot")
-
-# Remove deprecation warning.
-st.set_option('deprecation.showPyplotGlobalUse', False)
-
-# Choosing x-axis values for scatter plots.
-features_list = st.sidebar.multiselect("Select the x-axis values:",
-                                        ('RI', 'Na', 'Mg', 'Al', 'Si', 'K', 'Ca', 'Ba', 'Fe'))
-# Creating scatter plots.
-for feature in features_list:
-    st.subheader(f"Scatter plot between {feature} and GlassType")
-    plt.figure(figsize = (12, 6))
-    sns.scatterplot(x = feature, y = 'GlassType', data = glass_df)
-    st.pyplot()
-
-# Remove the code blocks for histogram and box plots.
-
 # Add a subheader in the sidebar with label "Visualisation Selector"
 st.sidebar.subheader("Visualisation Selector")
 
@@ -207,7 +152,6 @@ if classifier == 'Support Vector Machine':
 
     # If the user clicks 'Classify' button, perform prediction and display accuracy score and confusion matrix.
     # This 'if' statement must be inside the above 'if' statement.
-    
     if st.sidebar.button('Classify'):
         st.subheader("Support Vector Machine")
         svc_model = SVC(C = c_value, kernel = kernel_input, gamma = gamma_input)
@@ -219,6 +163,7 @@ if classifier == 'Support Vector Machine':
         st.write("Accuracy", accuracy.round(2))
         plot_confusion_matrix(svc_model, X_test, y_test)
         st.pyplot()
+
 if classifier == 'Random Forest Classifier':
     st.sidebar.subheader("Model Hyperparameters")
     n_estimators_input = st.sidebar.number_input("Number of trees in the forest", 100, 5000, step = 10)
