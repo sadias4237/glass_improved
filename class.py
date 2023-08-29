@@ -207,6 +207,7 @@ if classifier == 'Support Vector Machine':
 
     # If the user clicks 'Classify' button, perform prediction and display accuracy score and confusion matrix.
     # This 'if' statement must be inside the above 'if' statement.
+    
     if st.sidebar.button('Classify'):
         st.subheader("Support Vector Machine")
         svc_model = SVC(C = c_value, kernel = kernel_input, gamma = gamma_input)
@@ -218,7 +219,6 @@ if classifier == 'Support Vector Machine':
         st.write("Accuracy", accuracy.round(2))
         plot_confusion_matrix(svc_model, X_test, y_test)
         st.pyplot()
-
 if classifier == 'Random Forest Classifier':
     st.sidebar.subheader("Model Hyperparameters")
     n_estimators_input = st.sidebar.number_input("Number of trees in the forest", 100, 5000, step = 10)
