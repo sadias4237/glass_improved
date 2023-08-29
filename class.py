@@ -199,7 +199,7 @@ st.sidebar.subheader("Choose Classifier")
 classifier = st.sidebar.selectbox("Classifier",
                                  ('Support Vector Machine', 'Random Forest Classifier', 'Logistic Regression'))
 
-                                 if classifier == 'Support Vector Machine':
+if classifier == 'Support Vector Machine':
     st.sidebar.subheader("Model Hyperparameters")
     c_value = st.sidebar.number_input("C (Error Rate)", 1, 100, step = 1)
     kernel_input = st.sidebar.radio("Kernel", ("linear", "rbf", "poly"))
@@ -219,7 +219,7 @@ classifier = st.sidebar.selectbox("Classifier",
         plot_confusion_matrix(svc_model, X_test, y_test)
         st.pyplot()
 
-        if classifier == 'Random Forest Classifier':
+if classifier == 'Random Forest Classifier':
     st.sidebar.subheader("Model Hyperparameters")
     n_estimators_input = st.sidebar.number_input("Number of trees in the forest", 100, 5000, step = 10)
     max_depth_input = st.sidebar.number_input("Maximum depth of the tree", 1, 100, step = 1)
